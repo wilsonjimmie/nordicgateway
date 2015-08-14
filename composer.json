@@ -1,0 +1,13 @@
+{
+    "name": "wilsoncreative/nordicgateway",
+    "description": "A NordicGateway API created by Wilson Creative",
+    "authors": [
+        {
+            "name": "Jimmie Johansson",
+            "email": "jimmie@wilsoncreative.se"
+        }
+    ],
+    "require": {
+        "guzzle/guzzle": "^3.9"
+    }
+}
