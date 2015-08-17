@@ -30,15 +30,31 @@ class MainController extends BaseController
          * - QuantityARTIKELNR1 [ARTIKELNR1 byts ut mot artikelnr?] numeric
          * - ItemIdentifier [Skicka artikelnr som värde]
          */
-
-        // paketera data
+        $this->validate($request, [
+            'ClientId'          => 'required',
+            'ShipToCompany'     => 'required_without:ShipToFirstname,ShipToLastname',
+            'ShipToFirstname'   => 'required_without:ShipToCompany',
+            'ShipToLastname'    => 'required_without:ShipToCompany',
+            'ShipToAddress'     => 'required',
+            'ShipToAddress2'    => '',
+            'ShipToPostalCode'  => 'required',
+            'ShipToCity'        => 'required',
+            'ShipToCountry'     => 'required',
+            'ShipToEmail'       => '',
+            'ShipToPhone'       => '',
+            'ShipToFax'         => '',
+            'Text1'             => '', // Eget fält
+            'Quantity[*]'       => '',
+            'ItemIdentifier'    => ''
+        ]);
 
 
         // posta till http://linabews.lxir.se/order13.asp
         $client = new Client(getenv('NORDICGATEWAY_ENDPOINT'));
-        $request = $client->post('order13.asp', null, $data)->send();
+        $request = $client->post('order13.asp', null, $request->all())->send();
 
         return $request->getStatusCode();
+
     }
 
 }
